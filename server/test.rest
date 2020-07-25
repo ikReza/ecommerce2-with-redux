@@ -1,1 +1,50 @@
+
+POST http://localhost:5000/api/users/register
+content-type: application/json
+
+{
+    "name": "Ashley",
+    "email": "pokemon@vox.com",
+    "password": "9900"
+}
+
+###
+
+#signin
+POST http://localhost:5000/api/users/signin
+content-type: application/json
+
+{
+    "name": "Ash",
+    "email": "pokemon@yahoo.com",
+    "password": "9900"
+}
+
+###
+
+#Get all products
 GET http://localhost:5000/api/products
+
+###
+
+#Get Specific Product
+GET http://localhost:5000/api/products/5f1c4c97bfcbe5198862acc4
+
+
+###
+
+#Upload product
+POST http://localhost:5000/api/products
+content-type: application/json
+
+{
+    "name": "Casual Shirt",
+    "image": "https://hangten.com.pk/wp-content/uploads/2020/01/MH92550-BLK.jpg",
+    "brand": "Nike",
+    "price": 10,
+    "category": "Shirt",
+    "countInStock": 5,
+    "description": "good quality",
+    "rating": 5,
+    "numReviews": 2
+}

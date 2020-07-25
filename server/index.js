@@ -23,6 +23,7 @@ mongoose
 //Middlewares
 app.use(cors());
 app.use(express.json());
+app.use("/api/users", require("./routers/userRouter"));
 app.use("/api/products", require("./routers/productRouter"));
 
 app.get("/", (req, res) => {
