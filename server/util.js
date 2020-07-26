@@ -32,4 +32,11 @@ const isAuth = (req, res, next) => {
   return res.status(401).send({ message: "Token doesn't exist" });
 };
 
-module.exports = { getToken, isAuth };
+const isAdmin = (req, res, next) => {
+  if (!req.user || !req.user.isAdmin) {
+    return next();
+  }
+  return res.status(401).send({ message: "Admin token is not valid" });
+};
+
+module.exports = { getToken, isAuth, isAdmin };

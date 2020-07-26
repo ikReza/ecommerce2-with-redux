@@ -36,15 +36,37 @@ GET http://localhost:5000/api/products/5f1c4c97bfcbe5198862acc4
 #Upload product
 POST http://localhost:5000/api/products
 content-type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWYxOGZiMjZmZmE1YTBmMmM5MWI5NDkiLCJuYW1lIjoiS2Fpc2VyIiwiZW1haWwiOiJpcmV6YS5rYWlzZXIwMEBnbWFpbC5jb20iLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1OTU3MDcxNzMsImV4cCI6MTU5NTcxMDc3M30.ZODZIbUPi6rsTjcWbCFMYw7wXvsOxHf3Pb08YvWRiz4
 
 {
-    "name": "Casual Shirt",
+    "name": "Shirt F",
     "image": "https://hangten.com.pk/wp-content/uploads/2020/01/MH92550-BLK.jpg",
-    "brand": "Nike",
+    "brand": "Moka",
     "price": 10,
     "category": "Shirt",
     "countInStock": 5,
     "description": "good quality",
+    "rating": 5,
+    "numReviews": 2
+}
+
+###
+#Delete Product
+DELETE  http://localhost:5000/api/products/5f1d0dd93a8bc134d0c3f5d7
+
+###
+#Update Product
+PATCH  http://localhost:5000/api/products/5f1d10b02fd4ba2d1c0d3f90
+content-type: application/json
+
+{
+    "name": "Casual Shirt",
+    "image": "https://hangten.com.pk/wp-content/uploads/2020/01/MH92550-BLK.jpg",
+    "brand": "Moka",
+    "price": 10,
+    "category": "Shirt",
+    "countInStock": 5,
+    "description": "Excellent quality",
     "rating": 5,
     "numReviews": 2
 }
