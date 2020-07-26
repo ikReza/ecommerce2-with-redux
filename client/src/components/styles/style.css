@@ -1,0 +1,34 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin: 0 0 100px;
+  overflow-x: hidden;
+  /* bottom = footer height */
+}
+
+.menuSliderContainer {
+  height: 100%;
+  width: 200px;
+  background-color: white;
+  padding: 1rem;
+}
+
+.navbar-cart-btn {
+  color: tomato !important;
+  background: whitesmoke !important;
+  margin: auto 1vw !important;
+}
+
+.signin-btn-main {
+  margin: 1vh auto !important;
+  background-color: #fed136 !important;
+}
+
+.signup-btn-secondary {
+  background-color: #fed136 !important;
+  width: 100px;
+}
+/*# sourceMappingURL=style.css.map */
