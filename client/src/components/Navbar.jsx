@@ -15,15 +15,13 @@ import {
 } from "@material-ui/core";
 import { Menu } from "@material-ui/icons";
 import Footer from "./Footer";
-//import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  //   const userSignin = useSelector((state) => state.userSignin);
-  //   const { userInfo } = userSignin;
-  //   console.log(userInfo);
-  const userInfo = false;
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
 
   const sideList = () => (
     <Box

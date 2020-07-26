@@ -22,6 +22,143 @@ body {
   margin: auto 1vw !important;
 }
 
+.loading-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 10vh;
+}
+
+.card {
+  background-color: whitesmoke !important;
+  width: 80%;
+  margin: 2vh auto;
+}
+
+.mediaBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.media {
+  height: 30vh;
+  width: 80%;
+}
+
+.product-name {
+  color: tomato;
+}
+
+.product-price {
+  font-weight: bolder !important;
+}
+
+.loading-box {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 10vh !important;
+}
+
+.product-grid-container {
+  margin-top: 2vh !important;
+}
+
+.product-media {
+  height: 70vh;
+  width: 90%;
+}
+
+.rating-field-box {
+  padding-left: 0;
+}
+
+.qty-control {
+  width: 40%;
+}
+
+@media (max-width: 500px) {
+  .product-media {
+    height: 50vh;
+  }
+}
+
+.cart-container {
+  margin: 1vh 1vw;
+}
+
+.cart-table-container {
+  max-height: 75vh;
+}
+
+.cart-image {
+  height: 10vh;
+  width: auto;
+}
+
+.xs-grid {
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.xs-cart-img-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 3%;
+}
+
+.xs-cart-description-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 10vh;
+  margin: auto 1vw;
+}
+
+.cart-confirm-xs {
+  margin-top: 1vh;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.cart-empty-box {
+  height: 75vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .signin-btn-main {
   margin: 1vh auto !important;
   background-color: #fed136 !important;

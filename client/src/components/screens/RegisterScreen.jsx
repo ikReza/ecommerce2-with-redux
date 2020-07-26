@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Grid, Box, TextField, Button, Typography } from "@material-ui/core";
-// import { useDispatch, useSelector } from "react-redux";
-// import { register } from "../actions/userActions";
+import {
+  Grid,
+  Box,
+  TextField,
+  Button,
+  Typography,
+  LinearProgress,
+} from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../actions/userActions";
 
 const RegisterScreen = (props) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
-  //   const userRegister = useSelector((state) => state.userRegister);
-  //   const { loading, userInfo, error } = userRegister;
-  //   const dispatch = useDispatch();
-  const userInfo = false;
-  const error = false;
-  const loading = false;
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loading, userInfo, error } = userRegister;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (userInfo) {
@@ -26,10 +30,10 @@ const RegisterScreen = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password !== rePassword) {
-      alert("Password don't match");
+      alert("Password didn't match");
       setRePassword("");
     } else {
-      //dispatch(register(name, email, password));
+      dispatch(register(name, email, password));
     }
   };
 
@@ -45,7 +49,9 @@ const RegisterScreen = (props) => {
             Create Account
           </Typography>
           {loading && (
-            <Typography variant="subtitle2">Loading. .. ...</Typography>
+            <Typography variant="subtitle2">
+              <LinearProgress style={{ width: "100%" }} />
+            </Typography>
           )}
           {error && <Typography variant="subtitle2">{error}</Typography>}
           <TextField

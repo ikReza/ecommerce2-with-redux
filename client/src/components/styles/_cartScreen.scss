@@ -1,0 +1,44 @@
+.cart-container {
+  margin: 1vh 1vw;
+}
+
+.cart-table-container {
+  max-height: 75vh;
+}
+
+.cart-image {
+  height: 10vh;
+  width: auto;
+}
+
+.xs-grid {
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.xs-cart-img-box {
+  display: flex;
+  justify-content: space-between;
+  padding: 3%;
+}
+
+.xs-cart-description-box {
+  display: flex;
+  flex-direction: column;
+  height: 10vh;
+  margin: auto 1vw;
+}
+
+.cart-confirm-xs {
+  margin-top: 1vh;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cart-empty-box {
+  height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

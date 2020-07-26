@@ -15,7 +15,6 @@ POST http://localhost:5000/api/users/signin
 content-type: application/json
 
 {
-    "name": "Ash",
     "email": "pokemon@yahoo.com",
     "password": "9900"
 }

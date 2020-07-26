@@ -1,0 +1,29 @@
+.loading-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10vh !important;
+}
+
+.product-grid-container {
+  margin-top: 2vh !important;
+}
+
+.product-media {
+  height: 70vh;
+  width: 90%;
+}
+
+.rating-field-box {
+  padding-left: 0;
+}
+
+.qty-control {
+  width: 40%;
+}
+
+@media (max-width: 500px) {
+  .product-media {
+    height: 50vh;
+  }
+}

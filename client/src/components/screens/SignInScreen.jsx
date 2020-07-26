@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Grid, Box, TextField, Button, Typography } from "@material-ui/core";
-// import { useDispatch, useSelector } from "react-redux";
-// import { signin } from "./actions/userActions";
+import {
+  Grid,
+  Box,
+  TextField,
+  Button,
+  Typography,
+  LinearProgress,
+} from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import { signin } from "../actions/userActions";
 
 const SignInScreen = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const userInfo = false;
-  const error = false;
-  const loading = false;
-  //   const userSignin = useSelector((state) => state.userSignin);
-  //   const { loading, userInfo, error } = userSignin;
-  //   const dispatch = useDispatch();
+  const userSignin = useSelector((state) => state.userSignin);
+  const { loading, userInfo, error } = userSignin;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (userInfo) {
@@ -24,7 +28,7 @@ const SignInScreen = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    //dispatch(signin(email, password));
+    dispatch(signin(email, password));
   };
 
   return (
@@ -39,7 +43,9 @@ const SignInScreen = (props) => {
             Sign In
           </Typography>
           {loading && (
-            <Typography variant="subtitle2">Loading. .. ...</Typography>
+            <Typography variant="subtitle2">
+              <LinearProgress style={{ width: "100%" }} />
+            </Typography>
           )}
           {error && (
             <Typography
