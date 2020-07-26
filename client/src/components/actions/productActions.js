@@ -23,4 +23,38 @@ const detailsProduct = (productId) => async (dispatch) => {
   }
 };
 
-export { listProducts, detailsProduct };
+const saveProduct = (product) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: actions.PRODUCT_SAVE_REQUEST, payload: product });
+    const {
+      userSignin: { userInfo },
+    } = getState();
+    if (!product._id) {
+      const { data } = await axios.post(
+        "http://localhost:5000/api/products",
+        product,
+        {
+          headers: {
+            Authorization: "Bearer" + userInfo.token,
+          },
+        }
+      );
+      dispatch({ type: actions.PRODUCT_SAVE_SUCCESS, payload: data });
+    } else {
+      const { data } = await axios.patch(
+        `http://localhost:5000/api/products/${product._id}`,
+        product,
+        {
+          headers: {
+            Authorization: "Bearer" + userInfo.token,
+          },
+        }
+      );
+      dispatch({ type: actions.PRODUCT_SAVE_SUCCESS, payload: data });
+    }
+  } catch (error) {
+    dispatch({ type: actions.PRODUCT_SAVE_FAIL, payload: error.message });
+  }
+};
+
+export { listProducts, detailsProduct, saveProduct };
