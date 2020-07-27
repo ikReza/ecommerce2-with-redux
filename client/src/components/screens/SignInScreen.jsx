@@ -18,9 +18,12 @@ const SignInScreen = (props) => {
   const { loading, userInfo, error } = userSignin;
   const dispatch = useDispatch();
 
+  const redirect = props.location.search
+    ? props.location.search.split("=")[1]
+    : "/";
   useEffect(() => {
     if (userInfo) {
-      props.history.push("/");
+      props.history.push(redirect);
     }
     return () => {};
   }, [userInfo]);
@@ -86,14 +89,17 @@ const SignInScreen = (props) => {
           </Button>
           <Typography align="center">New to Amazona?</Typography>
           <Typography align="center">
-            Create New Account:{" "}
+            Create New Account:
             <Button
               component={Link}
-              to="/register"
+              //Find out if user came from shipping page or not
+              to={
+                redirect === "/" ? "register" : `register?redirect=${redirect}`
+              }
               className="signup-btn-secondary"
             >
               Sign Up
-            </Button>{" "}
+            </Button>
           </Typography>
         </Box>
       </Grid>

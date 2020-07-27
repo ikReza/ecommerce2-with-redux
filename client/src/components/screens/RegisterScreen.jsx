@@ -20,9 +20,13 @@ const RegisterScreen = (props) => {
   const { loading, userInfo, error } = userRegister;
   const dispatch = useDispatch();
 
+  const redirect = props.location.search
+    ? props.location.search.split("=")[1]
+    : "/";
+
   useEffect(() => {
     if (userInfo) {
-      props.history.push("/");
+      props.history.push(redirect);
     }
     return () => {};
   }, [userInfo]);
@@ -106,7 +110,7 @@ const RegisterScreen = (props) => {
             Already a member?{" "}
             <Button
               component={Link}
-              to="/signin"
+              to={redirect === "/" ? "signin" : `signin?redirect=${redirect}`}
               className="signup-btn-secondary"
             >
               Sign In

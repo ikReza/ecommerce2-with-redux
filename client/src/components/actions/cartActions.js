@@ -35,4 +35,12 @@ const removeFromCart = (productId) => (dispatch, getState) => {
   } catch (error) {}
 };
 
-export { addToCart, removeFromCart };
+const saveShipping = (data) => (dispatch) => {
+  dispatch({ type: actions.CART_SAVE_SHIPPING, payload: data });
+};
+
+const savePayment = (data) => (dispatch) => {
+  dispatch({ type: actions.CART_SAVE_PAYMENT, payload: data });
+};
+
+export { addToCart, removeFromCart, saveShipping, savePayment };

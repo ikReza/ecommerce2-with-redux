@@ -9,6 +9,9 @@ import CartScreen from "./components/screens/cartScreen";
 import SignInScreen from "./components/screens/SignInScreen";
 import RegisterScreen from "./components/screens/RegisterScreen";
 import ProductsScreen from "./components/screens/ProductsScreen";
+import ShippingScreen from "./components/screens/ShippingScreen";
+import PaymentScreen from "./components/screens/PaymentScreen";
+import PlaceOrderScreen from "./components/screens/PlaceOrderScreen";
 
 function App() {
   return (
@@ -16,9 +19,12 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/product/:id" exact component={ProductScreen} />
+        <Route path="/product/:id" component={ProductScreen} />
         <Route path="/cart/:id?" component={CartScreen} />
-        <Route path="/signin" exact component={SignInScreen} />
+        <Route path="/shipping" component={ShippingScreen} />
+        <Route path="/payment" component={PaymentScreen} />
+        <Route path="/placeorder" component={PlaceOrderScreen} />
+        <Route path="/signin" component={SignInScreen} />
         <Route path="/register" component={RegisterScreen} />
         <Route path="/products" component={ProductsScreen} />
       </Switch>

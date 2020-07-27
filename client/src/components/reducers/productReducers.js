@@ -31,7 +31,7 @@ function productSaveReducer(state = { product: {} }, action) {
     case actions.PRODUCT_SAVE_REQUEST:
       return { loading: true };
     case actions.PRODUCT_SAVE_SUCCESS:
-      return { loading: false, product: action.payload };
+      return { loading: false, product: action.payload, success: true };
     case actions.PRODUCT_SAVE_FAIL:
       return { loading: false, error: action.payload };
     default:
