@@ -35,10 +35,11 @@ const saveProduct = (product) => async (dispatch, getState) => {
         product,
         {
           headers: {
-            Authorization: "Bearer" + userInfo.token,
+            Authorization: "Bearer " + userInfo.token,
           },
         }
       );
+      console.log("front: ", userInfo.token);
       dispatch({ type: actions.PRODUCT_SAVE_SUCCESS, payload: data });
     } else {
       const { data } = await axios.patch(
@@ -46,15 +47,49 @@ const saveProduct = (product) => async (dispatch, getState) => {
         product,
         {
           headers: {
-            Authorization: "Bearer" + userInfo.token,
+            Authorization: "Bearer " + userInfo.token,
           },
         }
       );
       dispatch({ type: actions.PRODUCT_SAVE_SUCCESS, payload: data });
     }
   } catch (error) {
-    dispatch({ type: actions.PRODUCT_SAVE_FAIL, payload: error.message });
+    error.response
+      ? dispatch({
+          type: actions.PRODUCT_SAVE_FAIL,
+          payload: error.response.data.message,
+        })
+      : dispatch({ type: actions.PRODUCT_SAVE_FAIL, payload: error.message });
   }
 };
 
-export { listProducts, detailsProduct, saveProduct };
+const deleteProdcut = (productId) => async (dispatch, getState) => {
+  try {
+    const {
+      userSignin: { userInfo },
+    } = getState();
+    dispatch({ type: actions.PRODUCT_DELETE_REQUEST, payload: productId });
+    const { data } = await axios.delete(
+      `http://localhost:5000/api/products/${productId}`,
+      {
+        headers: {
+          Authorization: "Bearer " + userInfo.token,
+        },
+      }
+    );
+    dispatch({
+      type: actions.PRODUCT_DELETE_SUCCESS,
+      payload: data,
+      success: true,
+    });
+  } catch (error) {
+    error.response
+      ? dispatch({
+          type: actions.PRODUCT_DELETE_FAIL,
+          payload: error.response.data.message,
+        })
+      : dispatch({ type: actions.PRODUCT_DELETE_FAIL, payload: error.message });
+  }
+};
+
+export { listProducts, detailsProduct, saveProduct, deleteProdcut };

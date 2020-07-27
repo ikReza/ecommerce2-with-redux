@@ -16,9 +16,13 @@ import {
 } from "@material-ui/core";
 
 import { useSelector, useDispatch } from "react-redux";
-import { saveProduct, listProducts } from "../actions/productActions";
+import {
+  saveProduct,
+  listProducts,
+  deleteProdcut,
+} from "../actions/productActions";
 
-const ProductsScreen = () => {
+const ProductsScreen = (props) => {
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -32,14 +36,16 @@ const ProductsScreen = () => {
 
   const dispatch = useDispatch();
 
-  //list of products
-  const productList = useSelector((state) => state.productList);
-  const { loading, products, error } = productList;
+  //check user signed in or not
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
 
   useEffect(() => {
-    dispatch(listProducts());
+    if (!userInfo) {
+      props.history.push("/");
+    }
     return () => {};
-  }, []);
+  }, [userInfo]);
 
   //save product
   const productSave = useSelector((state) => state.productSave);
@@ -48,6 +54,26 @@ const ProductsScreen = () => {
     success: successSave,
     error: errorSave,
   } = productSave;
+
+  //delete product
+  const productDelete = useSelector((state) => state.productDelete);
+  const {
+    loading: loadingDelete,
+    success: successDelete,
+    error: errorDelete,
+  } = productDelete;
+
+  //list of products
+  const productList = useSelector((state) => state.productList);
+  const { loading, products, error } = productList;
+
+  useEffect(() => {
+    if (successSave) {
+      setModal(false);
+    }
+    dispatch(listProducts());
+    return () => {};
+  }, [successSave, successDelete]);
 
   const openModal = (product) => {
     setModal(true);
@@ -78,25 +104,22 @@ const ProductsScreen = () => {
     );
   };
 
+  const deleteHandler = (product) => {
+    dispatch(deleteProdcut(product._id));
+  };
+
   return modal ? (
     <Grid
       container
       justify="center"
-      style={{ height: "70vh", alignItems: "center" }}
+      style={{ minHeight: "70vh", alignItems: "center" }}
     >
       <Grid item xs={10} sm={7} md={5}>
         <Box component="form" onSubmit={handleSubmit}>
           <Typography align="center" variant="h4" gutterBottom>
             Products
           </Typography>
-          <Button
-            variant="outlined"
-            fullWidth
-            onClick={() => setModal(false)}
-            style={{ margin: "1vh auto" }}
-          >
-            Back to the details
-          </Button>
+
           {loadingSave && (
             <Typography variant="subtitle2">
               <LinearProgress />
@@ -116,7 +139,6 @@ const ProductsScreen = () => {
             margin="dense"
             variant="outlined"
             label="Name"
-            type="text"
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -163,8 +185,6 @@ const ProductsScreen = () => {
             variant="outlined"
             label="Description"
             required
-            multiline
-            row={2}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -186,6 +206,14 @@ const ProductsScreen = () => {
             style={{ margin: "1vh auto" }}
           >
             {id ? "Update" : "Create"}
+          </Button>
+          <Button
+            variant="outlined"
+            fullWidth
+            onClick={() => setModal(false)}
+            style={{ margin: "1vh auto" }}
+          >
+            Back to the details
           </Button>
         </Box>
       </Grid>
@@ -234,7 +262,9 @@ const ProductsScreen = () => {
                     <Button small onClick={() => openModal(item)}>
                       Edit
                     </Button>
-                    <Button small>Delete</Button>
+                    <Button small onClick={() => deleteHandler(item)}>
+                      Delete
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}

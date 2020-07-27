@@ -28,12 +28,13 @@ const isAuth = (req, res, next) => {
       req.user = user;
       next();
     });
+  } else {
+    return res.status(401).send({ message: "Token doesn't exist" });
   }
-  return res.status(401).send({ message: "Token doesn't exist" });
 };
 
 const isAdmin = (req, res, next) => {
-  if (!req.user || !req.user.isAdmin) {
+  if (req.user && req.user.isAdmin) {
     return next();
   }
   return res.status(401).send({ message: "Admin token is not valid" });

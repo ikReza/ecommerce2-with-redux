@@ -22,7 +22,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", isAuth, isAdmin, async (req, res) => {
   const product = new ShopProduct({
     name: req.body.name,
     price: req.body.price,
@@ -42,16 +42,16 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", isAuth, isAdmin, async (req, res) => {
   try {
     const removedProduct = await ShopProduct.deleteOne({ _id: req.params.id });
-    res.status(200).send({ message: "Product Deleted" });
+    res.status(200).send({ message: "Product Deleted", data: removedProduct });
   } catch (err) {
     res.status(400).send({ message: "Error in deletion" });
   }
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", isAuth, isAdmin, async (req, res) => {
   try {
     const updatedProduct = await ShopProduct.updateOne(
       { _id: req.params.id },
