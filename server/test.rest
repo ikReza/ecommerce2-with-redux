@@ -1,11 +1,24 @@
+#create admin
+POST http://localhost:5000/api/users/createadmin
+content-type: application/json
 
+{
+    "name": "Ibrahim",
+    "email": "ireza.kaiser00@gmail.com",
+    "password": "1234",
+    "isAdmin": true
+}
+
+###
+
+#register
 POST http://localhost:5000/api/users/register
 content-type: application/json
 
 {
-    "name": "Ashley",
-    "email": "pokemon@vox.com",
-    "password": "9900"
+    "name": "Kaiser",
+    "email": "ireza.kaiser00@gmail.com",
+    "password": "1234",
 }
 
 ###
@@ -69,3 +82,7 @@ content-type: application/json
     "rating": 5,
     "numReviews": 2
 }
+
+###
+#Get order
+GET http://localhost:5000/api/orders

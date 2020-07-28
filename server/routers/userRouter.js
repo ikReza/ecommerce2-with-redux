@@ -42,4 +42,19 @@ router.post("/signin", async (req, res) => {
   }
 });
 
+router.post("/createadmin", async (req, res) => {
+  try {
+    const user = new ShopUser({
+      name: "Ibrahim",
+      email: "ireza.kaiser00@gmail.com",
+      password: "1234",
+      isAdmin: true,
+    });
+    const newUser = await user.save();
+    res.send(newUser);
+  } catch (error) {
+    res.send({ message: error.message });
+  }
+});
+
 module.exports = router;

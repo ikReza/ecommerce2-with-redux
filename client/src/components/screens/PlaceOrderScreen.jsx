@@ -11,9 +11,11 @@ import {
 } from "@material-ui/core";
 
 import { useDispatch, useSelector } from "react-redux";
+import { createOrder } from "../actions/orderActions";
 
 const PlaceOrderScreen = (props) => {
   const steps = ["SignIn", "Shipping", "Payment", "Place Order"];
+  const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
   const { cartItems, shipping, payment } = cart;
@@ -28,6 +30,30 @@ const PlaceOrderScreen = (props) => {
   const shippingPrice = itemsPrice > 200 ? 0 : 10;
   const tax = 0.15 * itemsPrice;
   const totalPrice = itemsPrice + shippingPrice + tax;
+
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { loading, success, error, order } = orderCreate;
+
+  const submitHandle = () => {
+    // create an order
+    dispatch(
+      createOrder({
+        orderItems: cartItems,
+        shipping,
+        payment,
+        itemsPrice,
+        shippingPrice,
+        tax,
+        totalPrice,
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (success) {
+      props.history.push("/order/" + order._id);
+    }
+  }, [success]);
 
   return (
     <Grid container alignItems="center" direction="column" spacing={1}>
@@ -105,7 +131,12 @@ const PlaceOrderScreen = (props) => {
               paddingRight: "40px",
             }}
           >
-            <Button component="li" variant="outlined" fullWidth>
+            <Button
+              component="li"
+              variant="outlined"
+              fullWidth
+              onClick={submitHandle}
+            >
               Place Order
             </Button>
             <Typography component="li" gutterBottom>
