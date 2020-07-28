@@ -7,6 +7,13 @@
 
 .navbar-cart-btn {
   color: tomato !important;
-  background: whitesmoke !important;
-  margin: auto 1vw !important;
+  margin-right: 20px !important;
+  text-decoration: none;
+}
+
+.navbar-user-name {
+  text-decoration: none;
+  color: whitesmoke;
+  font-size: larger;
+  font-weight: bolder;
 }

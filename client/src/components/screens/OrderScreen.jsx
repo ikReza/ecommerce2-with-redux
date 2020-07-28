@@ -1,69 +1,30 @@
 import React, { useEffect } from "react";
-import {
-  Grid,
-  Stepper,
-  Step,
-  StepLabel,
-  Box,
-  Typography,
-  Button,
-} from "@material-ui/core";
+import { Grid, Box, Typography, Button } from "@material-ui/core";
+import { CreditCard } from "@material-ui/icons";
 
 import { useDispatch, useSelector } from "react-redux";
-import { createOrder } from "../actions/orderActions";
+import { createOrder, detailsOrder } from "../actions/orderActions";
 
-const PlaceOrderScreen = (props) => {
-  const steps = ["SignIn", "Shipping", "Payment", "Place Order"];
+const OrderScreen = (props) => {
   const dispatch = useDispatch();
 
-  const cart = useSelector((state) => state.cart);
-  const { cartItems, shipping, payment } = cart;
-
-  if (!shipping.address) {
-    props.history.push("/shipping");
-  } else if (!payment.paymentMethod) {
-    props.history.push("/payment");
-  }
-
-  const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
-  const shippingPrice = itemsPrice > 200 ? 0 : 10;
-  const tax = 0.15 * itemsPrice;
-  const totalPrice = itemsPrice + shippingPrice + tax;
-
-  const orderCreate = useSelector((state) => state.orderCreate);
-  const { loading, success, error, order } = orderCreate;
-
-  const submitHandle = () => {
-    // create an order
-    dispatch(
-      createOrder({
-        orderItems: cartItems,
-        shipping,
-        payment,
-        itemsPrice,
-        shippingPrice,
-        tax,
-        totalPrice,
-      })
-    );
-  };
+  const orderDetails = useSelector((state) => state.orderDetails);
+  const { loading, order, error } = orderDetails;
 
   useEffect(() => {
-    if (success) {
-      props.history.push(`/order/${order._id}`);
-    }
-  }, [success]);
+    dispatch(detailsOrder(props.match.params.id));
 
-  return (
+    return () => {};
+  }, []);
+
+  return loading ? (
+    <Box>Loading. .. ...</Box>
+  ) : error ? (
+    <Box>{error}</Box>
+  ) : (
     <Grid container alignItems="center" direction="column" spacing={1}>
       <Grid item xs={11} sm={11} md={11}>
-        <Stepper activeStep={3} alternativeLabel className="placeorder-stepper">
-          {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
+        <Box style={{ margin: "2vh auto" }}>Order No: {order._id}</Box>
       </Grid>
       <Grid item container xs={11} sm={11} md={11} border={1} spacing={1}>
         <Grid
@@ -80,8 +41,15 @@ const PlaceOrderScreen = (props) => {
               Address
             </Typography>
             <Typography variant="subtitle2">
-              {shipping.address}, {shipping.city}, {shipping.postalCode},{" "}
-              {shipping.country}
+              {order.shipping.address}, {order.shipping.city},{" "}
+              {order.shipping.postalCode}, {order.shipping.country}
+            </Typography>
+            <Typography variant="body2">
+              {order.isPaid ? (
+                <span style={{ color: "green" }}>Paid at {order.paidAt}</span>
+              ) : (
+                <span style={{ color: "red" }}>Not Paid</span>
+              )}
             </Typography>
           </Grid>
           <Grid item component={Box} item className="placeorder-box">
@@ -89,7 +57,7 @@ const PlaceOrderScreen = (props) => {
               Payment
             </Typography>
             <Typography variant="subtitle2">
-              Payment Method: {payment.paymentMethod}
+              Payment Method: {order.payment.paymentMethod}
             </Typography>
           </Grid>
           <Grid item component={Box} align="center" className="placeorder-box">
@@ -97,10 +65,10 @@ const PlaceOrderScreen = (props) => {
               <Typography variant="h6">Order Items</Typography>
               <Typography variant="h6">Price</Typography>
             </Box>
-            {cartItems.length === 0 ? (
+            {order.orderItems.length === 0 ? (
               <div>Cart is empty</div>
             ) : (
-              cartItems.map((item, i) => (
+              order.orderItems.map((item, i) => (
                 <Box key={i} className="box3-placeorder">
                   <Box style={{ display: "flex" }}>
                     <img
@@ -126,9 +94,10 @@ const PlaceOrderScreen = (props) => {
               variant="outlined"
               className="placeorder-btn"
               fullWidth
-              onClick={submitHandle}
+              startIcon={<CreditCard />}
+              //onClick={submitHandle}
             >
-              Place Order
+              Add Credit Card
             </Button>
             <Typography component="li" gutterBottom variant="h6">
               Order Summary
@@ -139,28 +108,28 @@ const PlaceOrderScreen = (props) => {
               style={{ display: "flex", justifyContent: "space-between" }}
             >
               <Typography>Items</Typography>
-              <Typography>${itemsPrice}</Typography>
+              <Typography>${order.itemsPrice}</Typography>
             </Box>
             <Box
               component="li"
               style={{ display: "flex", justifyContent: "space-between" }}
             >
               <Typography>Shipping</Typography>
-              <Typography>${shippingPrice}</Typography>
+              <Typography>${order.shippingPrice}</Typography>
             </Box>
             <Box
               component="li"
               style={{ display: "flex", justifyContent: "space-between" }}
             >
               <Typography>Tax</Typography>
-              <Typography>${tax}</Typography>
+              <Typography>${order.tax}</Typography>
             </Box>
             <Box
               component="li"
               style={{ display: "flex", justifyContent: "space-between" }}
             >
               <Typography>Order Total</Typography>
-              <Typography>${totalPrice}</Typography>
+              <Typography>${order.totalPrice}</Typography>
             </Box>
           </Box>
         </Grid>
@@ -169,4 +138,4 @@ const PlaceOrderScreen = (props) => {
   );
 };
 
-export default PlaceOrderScreen;
+export default OrderScreen;

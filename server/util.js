@@ -10,7 +10,7 @@ const getToken = (user) => {
     },
     process.env.TOKEN_SECRET,
     {
-      expiresIn: "1h",
+      expiresIn: "48h",
     }
   );
 };

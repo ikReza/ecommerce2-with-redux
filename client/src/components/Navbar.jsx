@@ -12,8 +12,9 @@ import {
   List,
   ListItem,
   ListItemText,
+  Badge,
 } from "@material-ui/core";
-import { Menu } from "@material-ui/icons";
+import { Menu, ShoppingCart } from "@material-ui/icons";
 import Footer from "./Footer";
 import { useSelector } from "react-redux";
 
@@ -22,6 +23,9 @@ const Navbar = () => {
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
+
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
 
   const sideList = () => (
     <Box
@@ -60,18 +64,16 @@ const Navbar = () => {
             Amazona
           </Typography>
           <>
-            <Button component={Link} to="/cart" className="navbar-cart-btn">
-              Cart
-            </Button>
-            {userInfo ? (
-              <Link
-                to="/profile"
-                style={{
-                  textDecoration: "none",
-                  color: "tomato",
-                  fontWeight: "bold",
-                }}
+            <Link to="/cart" className="navbar-cart-btn">
+              <Badge
+                badgeContent={cartItems.reduce((a, c) => a + c.qty, 0)}
+                color="secondary"
               >
+                <ShoppingCart />
+              </Badge>
+            </Link>
+            {userInfo ? (
+              <Link to="/profile" className="navbar-user-name">
                 {userInfo.name}
               </Link>
             ) : (

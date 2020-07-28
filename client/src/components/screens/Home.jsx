@@ -61,7 +61,7 @@ const Home = () => {
                   precision={0.5}
                 />
               </Box>
-              <Typography>{data.numReviews}</Typography>
+              <Typography>{data.numReviews} reviews</Typography>
             </CardContent>
           </Card>
         </Grid>
