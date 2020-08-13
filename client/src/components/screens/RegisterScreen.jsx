@@ -45,11 +45,16 @@ const RegisterScreen = (props) => {
     <Grid
       container
       justify="center"
-      style={{ height: "70vh", alignItems: "center" }}
+      style={{ minHeight: "70vh", alignItems: "center" }}
     >
-      <Grid item xs={10} sm={7} md={5}>
+      <Grid item xs={10} sm={6} md={4}>
         <Box component="form" onSubmit={handleSubmit}>
-          <Typography align="center" variant="h4" gutterBottom>
+          <Typography
+            align="center"
+            variant="h4"
+            gutterBottom
+            style={{ marginBottom: "5vh" }}
+          >
             Create Account
           </Typography>
           {loading && (
@@ -106,7 +111,7 @@ const RegisterScreen = (props) => {
           >
             Register
           </Button>
-          <Typography align="center">
+          <Typography align="center" style={{ marginTop: "2vh" }}>
             Already a member?{" "}
             <Button
               component={Link}

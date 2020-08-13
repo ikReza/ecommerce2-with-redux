@@ -40,9 +40,14 @@ const SignInScreen = (props) => {
       justify="center"
       style={{ height: "70vh", alignItems: "center" }}
     >
-      <Grid item xs={10} sm={7} md={5}>
+      <Grid item xs={10} sm={6} md={4}>
         <Box component="form" onSubmit={handleSubmit}>
-          <Typography align="center" variant="h4" gutterBottom>
+          <Typography
+            align="center"
+            variant="h4"
+            gutterBottom
+            style={{ marginBottom: "5vh" }}
+          >
             Sign In
           </Typography>
           {loading && (
@@ -88,7 +93,7 @@ const SignInScreen = (props) => {
             Sign In
           </Button>
           <Typography align="center">New to Amazona?</Typography>
-          <Typography align="center">
+          <Typography align="center" style={{ marginTop: "2vh" }}>
             Create New Account:
             <Button
               component={Link}

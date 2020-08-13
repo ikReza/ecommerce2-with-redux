@@ -5,7 +5,7 @@ import * as actions from "../constants/cartConstants";
 const addToCart = (productId, qty) => async (dispatch, getState) => {
   try {
     const { data } = await axios.get(
-      `http://localhost:5000/api/products/${productId}`
+      `https://ecommer-with-redux.herokuapp.com/api/products/${productId}`
     );
     dispatch({
       type: actions.CART_ADD_ITEM,

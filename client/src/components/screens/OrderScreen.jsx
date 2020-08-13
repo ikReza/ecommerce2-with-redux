@@ -4,6 +4,7 @@ import { CreditCard } from "@material-ui/icons";
 
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder, detailsOrder } from "../actions/orderActions";
+import Payment from "../Payment";
 
 const OrderScreen = (props) => {
   const dispatch = useDispatch();
@@ -89,7 +90,7 @@ const OrderScreen = (props) => {
         </Grid>
         <Grid item xs={11} sm={5} md={4}>
           <Box component="ul" className="box4-placeorder">
-            <Button
+            {/* <Button
               component="li"
               variant="outlined"
               className="placeorder-btn"
@@ -98,7 +99,8 @@ const OrderScreen = (props) => {
               //onClick={submitHandle}
             >
               Add Credit Card
-            </Button>
+            </Button> */}
+            <Payment />
             <Typography component="li" gutterBottom variant="h6">
               Order Summary
             </Typography>

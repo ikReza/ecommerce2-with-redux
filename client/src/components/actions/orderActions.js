@@ -10,11 +10,15 @@ const createOrder = (order) => async (dispatch, getState) => {
 
     const {
       data: { data: newOrder },
-    } = await axios.post("http://localhost:5000/api/orders", order, {
-      headers: {
-        Authorization: " Bearer " + userInfo.token,
-      },
-    });
+    } = await axios.post(
+      "https://ecommer-with-redux.herokuapp.com/api/orders",
+      order,
+      {
+        headers: {
+          Authorization: " Bearer " + userInfo.token,
+        },
+      }
+    );
     console.log("newOrder: ", newOrder);
     dispatch({ type: actions.ORDER_CREATE_SUCCESS, payload: newOrder });
   } catch (error) {
@@ -29,7 +33,7 @@ const detailsOrder = (orderId) => async (dispatch, getState) => {
       userSignin: { userInfo },
     } = getState();
     const { data } = await axios.get(
-      `http://localhost:5000/api/orders/${orderId}`,
+      `https://ecommer-with-redux.herokuapp.com/api/orders/${orderId}`,
       {
         headers: { Authorization: "Bearer " + userInfo.token },
       }
@@ -40,4 +44,22 @@ const detailsOrder = (orderId) => async (dispatch, getState) => {
   }
 };
 
-export { createOrder, detailsOrder };
+const listMyOrders = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: actions.MY_ORDER_LIST_REQUEST });
+    const {
+      userSignin: { userInfo },
+    } = getState();
+    const { data } = await axios.get(
+      "https://ecommer-with-redux.herokuapp.com/api/orders/mine",
+      {
+        headers: { Authorization: "Bearer " + userInfo.token },
+      }
+    );
+    dispatch({ type: actions.MY_ORDER_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: actions.MY_ORDER_LIST_FAIL, payload: error.message });
+  }
+};
+
+export { createOrder, detailsOrder, listMyOrders };

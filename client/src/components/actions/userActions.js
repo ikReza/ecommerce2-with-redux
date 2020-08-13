@@ -6,7 +6,7 @@ const signin = (email, password) => async (dispatch) => {
   dispatch({ type: actions.USER_SIGNIN_REQUEST, payload: { email, password } });
   try {
     const { data } = await axios.post(
-      "http://localhost:5000/api/users/signin",
+      "https://ecommer-with-redux.herokuapp.com/api/users/signin",
       {
         email,
         password,
@@ -29,7 +29,7 @@ const register = (name, email, password) => async (dispatch) => {
   });
   try {
     const { data } = await axios.post(
-      "http://localhost:5000/api/users/register",
+      "https://ecommer-with-redux.herokuapp.com/api/users/register",
       {
         name,
         email,

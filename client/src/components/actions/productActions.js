@@ -4,7 +4,9 @@ import * as actions from "../constants/productConstants";
 const listProducts = () => async (dispatch) => {
   try {
     dispatch({ type: actions.PRODUCT_LIST_REQUEST });
-    const { data } = await axios.get("http://localhost:5000/api/products");
+    const { data } = await axios.get(
+      "https://ecommer-with-redux.herokuapp.com/api/products"
+    );
     dispatch({ type: actions.PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: actions.PRODUCT_LIST_FAIL, payload: error.message });
@@ -15,7 +17,7 @@ const detailsProduct = (productId) => async (dispatch) => {
   try {
     dispatch({ type: actions.PRODUCT_DETAILS_REQUEST, payload: productId });
     const { data } = await axios.get(
-      `http://localhost:5000/api/products/${productId}`
+      `https://ecommer-with-redux.herokuapp.com/api/products/${productId}`
     );
     dispatch({ type: actions.PRODUCT_DETAILS_SUCCESS, payload: data });
   } catch (error) {
@@ -31,7 +33,7 @@ const saveProduct = (product) => async (dispatch, getState) => {
     } = getState();
     if (!product._id) {
       const { data } = await axios.post(
-        "http://localhost:5000/api/products",
+        "https://ecommer-with-redux.herokuapp.com/api/products",
         product,
         {
           headers: {
@@ -43,7 +45,7 @@ const saveProduct = (product) => async (dispatch, getState) => {
       dispatch({ type: actions.PRODUCT_SAVE_SUCCESS, payload: data });
     } else {
       const { data } = await axios.patch(
-        `http://localhost:5000/api/products/${product._id}`,
+        `https://ecommer-with-redux.herokuapp.com/api/products/${product._id}`,
         product,
         {
           headers: {
@@ -70,7 +72,7 @@ const deleteProdcut = (productId) => async (dispatch, getState) => {
     } = getState();
     dispatch({ type: actions.PRODUCT_DELETE_REQUEST, payload: productId });
     const { data } = await axios.delete(
-      `http://localhost:5000/api/products/${productId}`,
+      `https://ecommer-with-redux.herokuapp.com/api/products/${productId}`,
       {
         headers: {
           Authorization: "Bearer " + userInfo.token,

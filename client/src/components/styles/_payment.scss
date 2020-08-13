@@ -1,0 +1,21 @@
+.payment-card {
+  margin-top: 5vh !important;
+}
+
+.payment-textfields {
+  display: flex;
+}
+
+.payment-btn {
+  background-color: #fed136 !important;
+}
+
+@media (max-width: 600px) {
+  .payment-card {
+    margin: 3vh 2vw !important;
+  }
+  .payment-textfields {
+    display: flex;
+    flex-direction: column;
+  }
+}

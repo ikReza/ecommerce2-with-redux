@@ -16,6 +16,7 @@ import {
 } from "@material-ui/core";
 import { Menu, ShoppingCart } from "@material-ui/icons";
 import Footer from "./Footer";
+
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
